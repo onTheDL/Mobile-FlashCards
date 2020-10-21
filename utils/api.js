@@ -1,6 +1,6 @@
-import {AsyncStorage} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
-const data = {
+export const data = {
   React: {
     title: 'React',
     questions: [
@@ -25,46 +25,49 @@ const data = {
   }
 }
 
-//TO DO:
-//getDecks(): return all of the decks along with their titles, questions, and answers
-//getDeck():  take in a single id argument and return the deck associated with that id
-//saveDeckTitle(): take in a single title argument and add it to the decks
-//addCardToDeck(): take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title
-
-//method to delete a deck (?)
+const DECK_STORAGE_KEY = "flashcards:decks"
 
 
-const DECK_STORAGE_KEY = "mobileFlashcards:decks"
+// get all decks
+export async function getDecks() {
+  return await AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then(res => {
+      console.log('res: ', res)
+      if (res === null) {
+        AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+      }
+      return res === null ? data : JSON.parse(res)
+    })
+    .catch(err => console.log('Error in getDecks(): ', err))
 
-export function getData() {
-  return data
-}
 
-export function getDecks() {
-  try {
+  // try {
     
-    const jsonResult = await AsyncStorage.getItem(DECK_STORAGE_KEY);
+  //   const jsonResult = await AsyncStorage.getItem(DECK_STORAGE_KEY);
 
-    jsonResult === null && AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+  //   if (jsonResult === null) {
+  //     AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+  //   }
 
-    return JSON.parse(jsonResult)
+  //   return jsonResult === null ? data : JSON.parse(jsonResult)
 
-  }
-  catch(err) {
-    console.log('Error in getDecks() in api.js: ', err)
-  }
+  // }
+  // catch(err) {
+  //   console.error('Error in getDecks() in api.js: ', err)
+  // }
 }
 
-export function getDeck(deckId) {
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+// get single deck
+export async function getDeck(deckId) {
+  return await AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then(res => JSON.parse(res))
     .then(res => res[deckId])
     .catch(err => console.log('Error in getDeck() in api.js: ', err))
 }
 
-export function saveDeckTitle(title) {
+export async function saveDeckTitle(title) {
   try {
-    AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+    await AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [title]: { 
       title: title, 
       questions: []
@@ -76,8 +79,8 @@ export function saveDeckTitle(title) {
   }
 }
 
-export function deleteDeck(key) {
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+export async function deleteDeck(key) {
+  await AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then(res => {
       const data = JSON.parse(res)
       data[key] = undefined
@@ -87,7 +90,7 @@ export function deleteDeck(key) {
     .catch(err => console.log('Error in deleteDeck() in api.js: ', err))
 }
 
-export function addCardToDeck(deckId, card) {
+export async function addCardToDeck(deckId, card) {
   const deck = getDeck(deckId)
   const jsonCardMerge = JSON.stringify({
     [deckId]: {
@@ -95,7 +98,15 @@ export function addCardToDeck(deckId, card) {
       questions: [...deck.questions].concat(card)
     }
   })
-  return AsyncStorage.mergeItem(
+   await AsyncStorage.mergeItem(
     DECK_STORAGE_KEY, jsonCardMerge)
-    .catch(err => console.log('Error in addCardToDeck() in api.js', err))
+    .catch(err => console.log('Error in addCardToDeck() in api.js: ', err))
+}
+
+export function setInitialData() {
+  AsyncStorage.setItem(
+    DECK_STORAGE_KEY, 
+    JSON.stringify(data)
+  )
+    .catch(err => console.log('Error in setInitialData() in api.js: ', err))
 }

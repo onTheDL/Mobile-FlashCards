@@ -9,7 +9,7 @@ export default function App() {
     <View style={styles.container}>
       {/* <DeckList /> */}
 
-      <NewDeck />
+      <DeckList />
 
       <StatusBar style="auto" />
     </View>

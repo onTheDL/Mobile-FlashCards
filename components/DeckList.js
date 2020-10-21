@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
+
+import { getDecks } from '../utils/api'
+
 import Deck from './Deck'
 
-// try adding FlatList
 
 
 class DeckList extends Component {
 
   render() {
+    // const decks = getDecks()
+    // console.log('decks: ', decks)
     return (
       <ScrollView style={{flex: 1}}>
-        {/* <Deck /> */}
-        
-          <Deck />
+        {/* {Object.keys(decks).map(deck => {
+          return (
+            <View>
+              <Text>{deck}</Text>
+            </View>
+          )
+        })} */}
+
         
         
       </ScrollView>
