@@ -20,7 +20,7 @@ function receiveDecks(decks) {
 }
 
 export function handleInitialData() {
-  setInitialData()
+  
   return dispatch => {
     return getDecks()
       .then(decks => {
@@ -49,7 +49,7 @@ export function handleAddDeck(title) {
   }
 }
 
-export function deleteDeck(deckId) {
+export function deleteDeckAction(deckId) {
   return {
     type: DELETE_DECK,
     deckId,
@@ -59,7 +59,7 @@ export function deleteDeck(deckId) {
 export function handleDeleteDeck(deckId) {
   return dispatch => {
     return deleteDeck(deckId)
-      .then(() => dispatch(deleteDeck(deckId)))
+      .then(() => dispatch(deleteDeckAction(deckId)))
   }
 }
 

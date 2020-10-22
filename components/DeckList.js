@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import { handleAddCard, handleInitialData } from '../actions'
 
 import { getDecks } from '../utils/api'
 
@@ -9,7 +10,10 @@ import Deck from './Deck'
 
 
 class DeckList extends Component {
-
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(handleInitialData())
+  }
   render() {
     // const decks = getDecks()
     // console.log('decks: ', decks)
@@ -30,4 +34,4 @@ class DeckList extends Component {
   }
 }
 
-export default DeckList
+export default connect()(DeckList)

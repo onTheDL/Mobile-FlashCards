@@ -1,4 +1,5 @@
-import AsyncStorage from '@react-native-community/async-storage'
+// import AsyncStorage from '@react-native-community/async-storage'
+import { AsyncStorage } from 'react-native'
 
 export const data = {
   React: {
@@ -29,8 +30,9 @@ const DECK_STORAGE_KEY = "flashcards:decks"
 
 
 // get all decks
-export async function getDecks() {
-  return await AsyncStorage.getItem(DECK_STORAGE_KEY)
+export const getDecks = async () => {
+  /*
+  await AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then(res => {
       console.log('res: ', res)
       if (res === null) {
@@ -39,22 +41,16 @@ export async function getDecks() {
       return res === null ? data : JSON.parse(res)
     })
     .catch(err => console.log('Error in getDecks(): ', err))
+  */
 
-
-  // try {
-    
-  //   const jsonResult = await AsyncStorage.getItem(DECK_STORAGE_KEY);
-
-  //   if (jsonResult === null) {
-  //     AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
-  //   }
-
-  //   return jsonResult === null ? data : JSON.parse(jsonResult)
-
-  // }
-  // catch(err) {
-  //   console.error('Error in getDecks() in api.js: ', err)
-  // }
+  try {
+    const jsonValue = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+    return jsonValue !== null 
+      ? JSON.parse(jsonValue)
+      : data
+  } catch(e) {
+    console.error('Error in getDecks() in api.js: ', e)
+  }
 }
 
 // get single deck
@@ -103,10 +99,18 @@ export async function addCardToDeck(deckId, card) {
     .catch(err => console.log('Error in addCardToDeck() in api.js: ', err))
 }
 
-export function setInitialData() {
-  AsyncStorage.setItem(
-    DECK_STORAGE_KEY, 
-    JSON.stringify(data)
-  )
-    .catch(err => console.log('Error in setInitialData() in api.js: ', err))
+export const setInitialData = async () => {
+
+  try {
+    const jsonValue = JSON.stringify(data)
+    await AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
+  } catch(e) {
+    console.error('Error in setInitialData() in api.js: ', e)
+  }
+
+  // await AsyncStorage.setItem(
+  //   DECK_STORAGE_KEY, 
+  //   JSON.stringify(data)
+  // )
+  //   .catch(err => console.log('Error in setInitialData() in api.js: ', err))
 }
