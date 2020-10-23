@@ -22,10 +22,10 @@ const DeckSummary = (props) => {
 }
 
 class DeckList extends Component {
-  // componentDidMount() {
-  //   const { dispatch } = this.props
-  //   dispatch(handleInitialData())
-  // }
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(handleInitialData())
+  }
   render() {
     console.log('data: ', data)
     return (
