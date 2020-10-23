@@ -29,7 +29,11 @@ class DeckList extends Component {
   render() {
     console.log('data: ', data)
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Choose Your Deck</Text>
+
+        <ScrollView >
+        
         {Object.keys(data).map(title => (
           <View key={title} style={styles.cardsContainer}>
             <DeckSummary deck={data[title]} />
@@ -37,6 +41,8 @@ class DeckList extends Component {
           ))
         }
       </ScrollView>
+      </View>
+      
     )
   }
 }
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 50,
     width: 350,
+    
   },
 
   cardsContainer: {
@@ -55,12 +62,19 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 20,
-    justifyContent: "center",
+    justifyContent: 'center',
     borderRadius: 5,
+    
+  },
+  heading: {
+    fontSize: 30,
+    marginTop: 30,
+    marginBottom: 30,
+    alignSelf: 'center',
   },
   cards: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: 30,
     marginRight: 30,
   },
