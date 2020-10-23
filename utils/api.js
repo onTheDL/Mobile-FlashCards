@@ -29,20 +29,20 @@ export const data = {
 const DECK_STORAGE_KEY = "flashcards:decks"
 
 
+export const setInitialData = async () => {
+
+  try {
+    const jsonValue = JSON.stringify(data)
+    await AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
+  } catch(e) {
+    console.error('Error in setInitialData() in api.js: ', e)
+  }
+
+}
+
 // get all decks
 export const getDecks = async () => {
-  /*
-  await AsyncStorage.getItem(DECK_STORAGE_KEY)
-    .then(res => {
-      console.log('res: ', res)
-      if (res === null) {
-        AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
-      }
-      return res === null ? data : JSON.parse(res)
-    })
-    .catch(err => console.log('Error in getDecks(): ', err))
-  */
-
+  
   try {
     const jsonValue = await AsyncStorage.getItem(DECK_STORAGE_KEY)
     return jsonValue !== null 
@@ -99,18 +99,3 @@ export async function addCardToDeck(deckId, card) {
     .catch(err => console.log('Error in addCardToDeck() in api.js: ', err))
 }
 
-export const setInitialData = async () => {
-
-  try {
-    const jsonValue = JSON.stringify(data)
-    await AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
-  } catch(e) {
-    console.error('Error in setInitialData() in api.js: ', e)
-  }
-
-  // await AsyncStorage.setItem(
-  //   DECK_STORAGE_KEY, 
-  //   JSON.stringify(data)
-  // )
-  //   .catch(err => console.log('Error in setInitialData() in api.js: ', err))
-}
