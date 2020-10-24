@@ -16,7 +16,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Constants from 'expo-constants'
 
 import DeckList from './components/DeckList'
+import Deck from './components/Deck'
+import AddCard from './components/AddCard'
+import ErrorPage from './components/ErrorPage'
+import Quiz from './components/Quiz'
+import QuizResult from './components/QuizResult'
 import AddDeck from './components/AddDeck'
+
 
 
 function AppStatusBar({ backgroundColor, ...props }) {
@@ -28,30 +34,78 @@ function AppStatusBar({ backgroundColor, ...props }) {
 }
 
 
-function App() {
-  
-  const Stack = createStackNavigator()
+// Note: Possible breaking update in @react-navigation/material-top-tabs; importing api returns an error. Currently only designing tab nav for ios
 
-  return (
-    <Provider store={createStore(reducer, middleware)} >
-      <View style={styles.container}>
-        <NavigationContainer>
-          <Stack.Navigator>
 
-            <Stack.Screen name='Deck List' component={DeckList} options={{ title: 'Mobile Flashcards' }}/>
-            <Stack.Screen
-              name='AddDeck' 
-              component={AddDeck}
-              options={{ title: 'Add a new deck'}}
-              
-            /> 
-          </Stack.Navigator>
-        </NavigationContainer>      
-        
-      </View>
-    </Provider>
+const Stack = createStackNavigator()
+
+const DeckStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen 
+      name='DeckList'
+      component={DeckList} 
+      options={{ title: 'Mobile Flashcards' }} 
+    />
+    <Stack.Screen 
+      name='Deck'
+      component={Deck} 
+      
+    />
+    <Stack.Screen 
+      name='AddCard'
+      component={AddCard}  
+    />
+    <Stack.Screen 
+      name='ErrorPage'
+      component={ErrorPage} 
+    />
+    <Stack.Screen 
+      name='Quiz'
+      component={Quiz}
+    />
+    <Stack.Screen 
+      name='QuizResult'
+      component={QuizResult} 
+      
+    />
     
-  );
+    
+  </Stack.Navigator>
+)
+const Tabs = createBottomTabNavigator()
+const TabNav = () => (
+  <Tabs.Navigator
+  initialRouteName='DeckStack'
+  >
+    <Tabs.Screen name='DeckStack'
+      component={DeckStack}
+      options={{ title: 'Deck Stacks'}}
+    />
+    <Tabs.Screen
+      name='AddDeck'
+      component={AddDeck}
+      options={{ title: 'Add Deck'}} 
+    />
+  </Tabs.Navigator>
+)
+
+class App extends React.Component {
+  
+  render() {
+    return (
+      <Provider store={createStore(reducer, middleware)} >
+        <View style={styles.container}>
+          <NavigationContainer>
+            <AppStatusBar />
+            <TabNav />
+          </NavigationContainer>      
+          
+        </View>
+      </Provider>
+    )
+  }
+
+  
 }
 
 const styles = StyleSheet.create({

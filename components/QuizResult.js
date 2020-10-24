@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-class QuizResults extends Component {
+class QuizResult extends Component {
 
   render() {
     return (
       <View>
-        <Text>QuizResults</Text>
+        <Text>QuizResult</Text>
       </View>
     )
   }
 }
 
-export default QuizResults
+export default QuizResult

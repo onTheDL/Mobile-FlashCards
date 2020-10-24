@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
-    marginTop: 30,
-    marginBottom: 30,
+    marginBottom: 20,
     alignSelf: 'center',
   },
   cards: {
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     width: 200,
+    height: 60
   },
 })
 
