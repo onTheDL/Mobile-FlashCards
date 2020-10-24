@@ -35,6 +35,7 @@ export const setInitialData = async () => {
   try {
     const jsonValue = JSON.stringify(data)
     await AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
+
   } catch(e) {
     console.error('Error in setInitialData() in api.js: ', e)
   }
@@ -46,6 +47,11 @@ export const getDecks = async () => {
   
   try {
     const jsonValue = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+
+    if (!jsonValue) {
+      setInitialData()
+    }
+
     return jsonValue !== null 
       ? JSON.parse(jsonValue)
       : data

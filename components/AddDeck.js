@@ -6,7 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView } from 'react-native'
 
-class NewDeck extends Component {
+class AddDeck extends Component {
   state = {
     input: '',
   }
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default NewDeck
+export default AddDeck

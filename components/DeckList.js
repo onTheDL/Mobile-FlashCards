@@ -15,8 +15,15 @@ const DeckSummary = (props) => {
   const { title, questions } = props.deck
   return (
     <TouchableOpacity style={styles.cards}>
-      <Text>{title}</Text>
-      <Text>{questions.length} cards</Text>
+      <Text style={{fontSize: 22}}>
+        {title}
+      </Text>
+      <Text style={{fontSize: 14, color: 'gray'}}>
+        {questions.length} 
+        {questions.length === 1
+          ? ' card'
+          : ' cards'}
+      </Text>
     </TouchableOpacity>
   )
 }
@@ -27,12 +34,12 @@ class DeckList extends Component {
     dispatch(handleInitialData())
   }
   render() {
-    console.log('data: ', data)
+    
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>Choose Your Deck</Text>
 
-        <ScrollView >
+        <ScrollView>
         
         {Object.keys(data).map(title => (
           <View key={title} style={styles.cardsContainer}>
@@ -51,7 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-    width: 350,
+    alignItems: 'center',
+    justifyContent: 'center',
     
   },
 
@@ -64,7 +72,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     borderRadius: 5,
-    
   },
   heading: {
     fontSize: 30,
@@ -77,6 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 30,
     marginRight: 30,
+    width: 200,
   },
 })
 
