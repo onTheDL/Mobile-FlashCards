@@ -10,45 +10,48 @@ import {
  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+
 class AddDeck extends Component {
   state = {
-    input: '',
+    title: '',
   }
-  handleTextChange = (input) => {
+  handleTextChange = (title) => {
     this.setState(() => ({
-      input,
+      title,
     }))
   }
 
   handleSubmit = (e) => {
-  
-    // add to DB
     
+    // add to DB
+
     // add deck title to store
   
-    alert('Add Deck: input was  submitted')
+    alert('Add Deck: title was  submitted')
     this.setState({
-    input: '',
+    title: '',
     })
-    this.props.navigation.navigate('DeckStack')
+    this.props.navigation.navigate('Deck', {
+      deckId: this.state.title,
+    })
   }
 
   render() {
-    const { input } = this.state
+    const { title } = this.state
     return (
       <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
         <View style={styles.container}>
           <Text style={{fontSize: 18}}>Enter the name of your new deck</Text>
 
           <TextInput
-            value={input} 
+            value={title} 
             onChangeText={this.handleTextChange}
             placeholder='Deck name' 
             style={styles.input} 
             enablesReturnKeyAutomatically={true}
           />
 
-          {input !== '' &&
+          {title !== '' &&
             <TouchableOpacity
               onPress={this.handleSubmit}
               style={styles.button}

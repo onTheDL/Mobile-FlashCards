@@ -1,26 +1,26 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-class Deck extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        Deck        
-      </View>
-    )
-  }
+function Deck({ route, navigation }) {
+  const { deckId } = route.params
+
+  
+
+  return (
+    <View style={styles.container}>
+      <Text>{deckId}</Text>        
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'grey',
+    flex: 1,
     padding: 20,
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 20,
-    justifyContent: "center",
-    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   
 })

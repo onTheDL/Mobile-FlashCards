@@ -68,6 +68,10 @@ const DeckStack = () => (
       component={QuizResult} 
       
     />
+    {/* <Stack.Screen 
+      name='AddDeck'
+      component={AddDeck} 
+    /> */}
     
     
   </Stack.Navigator>
@@ -77,9 +81,10 @@ const TabNav = () => (
   <Tabs.Navigator
   initialRouteName='DeckStack'
   >
-    <Tabs.Screen name='DeckStack'
-      component={DeckStack}
+    <Tabs.Screen 
+      name='DeckStack'
       options={{ title: 'Deck Stacks'}}
+      component={DeckStack}
     />
     <Tabs.Screen
       name='AddDeck'

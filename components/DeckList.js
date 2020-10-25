@@ -11,12 +11,22 @@ import { getDecks, data } from '../utils/api'
 
 
 
-const DeckSummary = (props) => {
-  const { title, questions } = props.deck
+
+const DeckSummary = ({title, navigation}) => {
+  const questions = data[title].questions
+  const { navigate } = navigation
+
+  const handleSelect= () => {
+    navigate('Deck', {
+      deckId: title,
+    })
+
+  }
+
   return (
     <TouchableOpacity 
       style={styles.cards}
-      
+      onPress={handleSelect}
     >
       <Text style={{fontSize: 22}}>
         {title}
@@ -46,7 +56,10 @@ class DeckList extends Component {
         
         {Object.keys(data).map(title => (
           <View key={title} style={styles.cardsContainer}>
-            <DeckSummary deck={data[title]} />
+            <DeckSummary
+             route={this.props.route}
+             navigation={this.props.navigation}
+             title={title} />
           </View>  
           ))
         }
