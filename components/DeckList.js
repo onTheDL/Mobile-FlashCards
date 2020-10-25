@@ -14,7 +14,10 @@ import { getDecks, data } from '../utils/api'
 const DeckSummary = (props) => {
   const { title, questions } = props.deck
   return (
-    <TouchableOpacity style={styles.cards}>
+    <TouchableOpacity 
+      style={styles.cards}
+      
+    >
       <Text style={{fontSize: 22}}>
         {title}
       </Text>

@@ -84,7 +84,7 @@ const TabNav = () => (
     <Tabs.Screen
       name='AddDeck'
       component={AddDeck}
-      options={{ title: 'Add Deck'}} 
+      options={{ title: 'New Deck'}} 
     />
   </Tabs.Navigator>
 )
