@@ -6,14 +6,14 @@ import {
   ScrollView, 
   TouchableOpacity, } from 'react-native'
 import { connect } from 'react-redux'
-import { handleAddCard, handleInitialData } from '../actions'
+import { handleAddCard, handleInitialData } from '../actions/index'
 import { getDecks, data } from '../utils/api'
 
 
 
 
-const DeckSummary = ({title, navigation}) => {
-  const questions = data[title].questions
+const DeckSummary = ({title, navigation, decks}) => {
+  const questions = decks[title].questions
   const { navigate } = navigation
 
   const handleSelect= () => {
@@ -38,6 +38,7 @@ const DeckSummary = ({title, navigation}) => {
           : ' cards'}
       </Text>
     </TouchableOpacity>
+
   )
 }
 
@@ -47,6 +48,8 @@ class DeckList extends Component {
     dispatch(handleInitialData())
   }
   render() {
+
+    const { decks } = this.props
     
     return (
       <View style={styles.container}>
@@ -54,12 +57,14 @@ class DeckList extends Component {
 
         <ScrollView>
         
-        {Object.keys(data).map(title => (
+        {Object.keys(decks).map(title => (
           <View key={title} style={styles.cardsContainer}>
             <DeckSummary
              route={this.props.route}
              navigation={this.props.navigation}
-             title={title} />
+             title={title}
+             decks={decks}
+             />
           </View>  
           ))
         }
@@ -104,4 +109,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect()(DeckList)
+function mapStateToProps(decks) {
+return { decks }
+}
+
+export default connect(mapStateToProps)(DeckList)

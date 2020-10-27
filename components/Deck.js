@@ -1,10 +1,27 @@
-import React, {Component} from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
 
-function Deck({ route, navigation }) {
+import { connect } from 'react-redux'
+import { handleDeleteDeck } from '../actions'
+
+
+function Deck({ route, navigation, decks }) {
   const { deckId } = route.params
+  const { navigate } = navigation
+  const { questions } = decks[deckId]
 
-  
+  const handleAddCard = () => {
+    navigate('AddCard', { deckId
+    })
+  }
+
+  const handleStartQuiz = () => {
+    navigate('Quiz', { deckId })
+  }
+
+  const handleDeleteDeck = () => {
+    handleDeleteDeck(deckId)
+  }
 
   return (
     <View style={styles.container}>
@@ -12,16 +29,32 @@ function Deck({ route, navigation }) {
         <Text style={{fontSize: 28, letterSpacing: 1.1}}>
           {deckId}
         </Text> 
-        <Text style={styles.subText}>x cards</Text> 
+        <Text style={styles.subText}>
+          {questions.length}
+          {questions.length === 1
+            ? ' card'
+            : ' cards'
+          }
+        </Text> 
       </View>
 
       <View>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity 
+        style={styles.btn}
+        onPress={handleAddCard} 
+        >
           <Text>Add Card</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.btn, styles.quizBtn]}>
+        <TouchableOpacity 
+          style={[styles.btn, styles.quizBtn]}
+          onPress={handleStartQuiz}
+        >
           <Text style={{color: 'white'}}>Start Quiz</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.deleteText}>Delete Deck</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -31,7 +64,7 @@ function Deck({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 25,
     marginLeft: 10,
     marginRight: 10,
     justifyContent: 'space-around',
@@ -63,7 +96,7 @@ const styles = StyleSheet.create({
     // color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 18,
+    marginBottom: 22,
   },
   btnText: {
     fontSize: 16,
@@ -71,8 +104,20 @@ const styles = StyleSheet.create({
 
   quizBtn: {
     backgroundColor: 'black',
-  } 
+  },
+  
+  deleteText: {
+    textAlign: 'center',
+    color: '#7a0c0c',
+    fontSize: 14,
+  },
   
 })  
 
-export default Deck
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(Deck)

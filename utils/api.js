@@ -1,5 +1,3 @@
-// import AsyncStorage from '@react-native-community/async-storage'
-// import { AsyncStorage } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const data = {
@@ -30,17 +28,17 @@ export const data = {
 const DECK_STORAGE_KEY = "flashcards:decks"
 
 
-export const setInitialData = async () => {
+// export const setInitialData = () => {
 
-  try {
-    const jsonValue = JSON.stringify(data)
-    await AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
+//   try {
+//     const jsonValue = JSON.stringify(data)
+//     AsyncStorage.setItem(DECK_STORAGE_KEY, jsonValue)
 
-  } catch(e) {
-    console.error('Error in setInitialData() in api.js: ', e)
-  }
+//   } catch(e) {
+//     console.error('Error in setInitialData() in api.js: ', e)
+//   }
 
-}
+// }
 
 // get all decks
 export const getDecks = async () => {
@@ -49,14 +47,14 @@ export const getDecks = async () => {
     const jsonValue = await AsyncStorage.getItem(DECK_STORAGE_KEY)
 
     if (!jsonValue) {
-      setInitialData()
+      AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
     }
 
     return jsonValue !== null 
       ? JSON.parse(jsonValue)
       : data
-  } catch(e) {
-    console.error('Error in getDecks() in api.js: ', e)
+  } catch(err) {
+    console.error('Error in getDecks() in api.js: ', err)
   }
 }
 

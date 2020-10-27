@@ -6,7 +6,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Button
  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
