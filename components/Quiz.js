@@ -51,8 +51,6 @@ class Quiz extends Component {
     
   }
 
-  
-
   render() {
     const { deckId } = this.props.route.params
     const { decks, navigation } = this.props
@@ -64,81 +62,80 @@ class Quiz extends Component {
     const totalQuestions = questions.length
     const counter = `[ ${index + 1} of ${totalQuestions} ]`
 
+    if (totalQuestions === 0) {
+      <View style={styles.container}>
+        <Text>This deck is empty. Add study cards to start the quiz.</Text>
+      </View>
+    }
 
     return (
     <View style={{flex: 1}}> 
-        <FlipCard 
-          style={{flex: 1}}
-          friction={8}
-          perspective={1000}
-          flipHorizontal={true}
-          flipVertical={false}
-          flip={false}
-          clickable={true}
-          
-        >
-          {/* Face Side */}
-          <View style={styles.container}>
+      <FlipCard 
+        style={{flex: 1}}
+        friction={8}
+        perspective={1000}
+        flipHorizontal={true}
+        flipVertical={false}
+        flip={false}
+        clickable={true}
+        
+      >
+        {/* Face Side */}
+        <View style={styles.container}>
 
-            <Text style={styles.counter}>QUESTION {counter} : </Text>
+          <Text style={styles.counter}>QUESTION {counter} : </Text>
 
-            <View>
-              {/* <Text style={styles.heading}>QUESTION:</Text> */}
-              <Text style={styles.text}>{question}</Text>
-              <TouchableOpacity style={styles.fliptoAnswer}>
-                <Text>(Tap to see answer)</Text>
-              </TouchableOpacity>
-            </View>
+          <View>
+            {/* <Text style={styles.heading}>QUESTION:</Text> */}
+            <Text style={styles.text}>{question}</Text>
+            <TouchableOpacity style={styles.fliptoAnswer}>
+              <Text>(Tap to see answer)</Text>
+            </TouchableOpacity>
           </View>
+        </View>
 
-          {/* Back Side */}
-          <View style={styles.container}>
-            <View style={{alignItems: 'center', marginTop: 30}}>
-              <Text style={styles.heading}>ANSWER:</Text>
-              <Text style={styles.text}>{answer}</Text>
+        {/* Back Side */}
+        <View style={styles.container}>
+          <View style={{alignItems: 'center', marginTop: 30}}>
+            <Text style={styles.heading}>ANSWER:</Text>
+            <Text style={styles.text}>{answer}</Text>
 
-              <View style={styles.subContainer}>
-                <Text>Did you answer correctly?</Text>
+            <View style={styles.subContainer}>
+              <Text>Did you answer correctly?</Text>
 
-                  <View style={styles.btnContainer}>
-                    <View>
-                      <TouchableOpacity 
-                        style={styles.btn}
-                        onPress={
-                          (index + 1 >= questions.length)
-                          ? this.navToResults(numCorrect + 1, numWrong, totalQuestions)
-                          : this.handleCorrectAns
-                        }
-                      >
-                        <Text>Yes</Text>
-                      </TouchableOpacity>
-                    </View>
-
-                    <View>
-                      <TouchableOpacity 
-                        style={styles.btn}
-                        onPress={
-                          index + 1 >= totalQuestions
-                          ? this.navToResults(numCorrect, numWrong + 1, totalQuestions)
-                          : this.handleWrongAns
-                        }
-                      >
-                        <Text>No</Text>
-                      </TouchableOpacity>
-                    </View>
-                    
-                  </View>
-
-              </View>
-
-              <TouchableOpacity style={styles.flipToQuestion}>
-                <Text>(Back to the question)</Text>
-              </TouchableOpacity>
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity 
+                    style={styles.btn}
+                    onPress={
+                      (index + 1 >= questions.length)
+                      ? this.navToResults(numCorrect + 1, numWrong, totalQuestions)
+                      : this.handleCorrectAns
+                    }
+                  >
+                    <Text>Yes</Text>
+                  </TouchableOpacity>
+                                    
+                  <TouchableOpacity 
+                    style={styles.btn}
+                    onPress={
+                      index + 1 >= totalQuestions
+                      ? this.navToResults(numCorrect, numWrong + 1, totalQuestions)
+                      : this.handleWrongAns
+                    }
+                  >
+                    <Text>No</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
 
+            <TouchableOpacity style={styles.flipToQuestion}>
+              <Text>(Back to the question)</Text>
+            </TouchableOpacity>
           </View>
 
-        </FlipCard>
+        </View>
+
+      </FlipCard>
 
 
         

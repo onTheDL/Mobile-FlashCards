@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
+  TouchableOpacity,
   Platform,
  } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-
+import { handleAddDeck, addDeck } from '../actions'
+import { saveDeckTitle } from '../utils/api'
+import { connect } from 'react-redux'
 
 class AddDeck extends Component {
   state = {
@@ -21,15 +23,22 @@ class AddDeck extends Component {
   }
 
   handleSubmit = (e) => {
-    
-    // add to DB
+    const { title } = this.state
+    const { dispatch } = this.props
+    /*
+    // add to Redux store  
+    addDeck(title)
 
-    // add deck title to store
-  
-    alert('Add Deck: title was submitted')
+    // add to DB 
+    saveDeckTitle(title)
+    */
+
+    dispatch(handleAddDeck(title))
+
+    alert(`The deck entitled ${title} was added`)
 
     this.props.navigation.navigate('Deck', {
-      deckId: this.state.title,
+      deckId: title,
     })
     
     this.setState({
@@ -100,4 +109,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default AddDeck
+export default connect()(AddDeck)

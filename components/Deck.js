@@ -5,10 +5,16 @@ import { connect } from 'react-redux'
 import { handleDeleteDeck } from '../actions'
 
 
-function Deck({ route, navigation, decks }) {
+function Deck({ route, navigation, decks, dispatch }) {
   const { deckId } = route.params
+  // console.log('deckId: ', deckId)
+  // console.log('decks: ', decks)
+  // console.log('navigation: ', navigation)
+
   const { navigate } = navigation
-  const { questions } = decks[deckId]
+  const questions = decks[deckId]   
+    ? decks[deckId].questions 
+    : ''
 
   const handleAddCard = () => {
     navigate('AddCard', { deckId
@@ -19,8 +25,20 @@ function Deck({ route, navigation, decks }) {
     navigate('Quiz', { deckId })
   }
 
-  const handleDeleteDeck = () => {
-    handleDeleteDeck(deckId)
+  const onDeleteDeck = () => {
+
+    // nav to DeckList
+    navigate('DeckList')
+
+    dispatch(handleDeleteDeck(deckId))
+
+  /*
+    // delete in db
+    deleteDeck(deckId)
+    // delete in store
+    dispatch(deleteDeckAction(deckId))
+  */  
+  
   }
 
   return (
@@ -40,8 +58,8 @@ function Deck({ route, navigation, decks }) {
 
       <View>
         <TouchableOpacity 
-        style={styles.btn}
-        onPress={handleAddCard} 
+          style={styles.btn}
+          onPress={handleAddCard} 
         >
           <Text>Add Card</Text>
         </TouchableOpacity>
@@ -53,12 +71,15 @@ function Deck({ route, navigation, decks }) {
           <Text style={{color: 'white'}}>Start Quiz</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={onDeleteDeck}
+        >
           <Text style={styles.deleteText}>Delete Deck</Text>
         </TouchableOpacity>
       </View>
     </View>
   )
+  
 }
 
 const styles = StyleSheet.create({

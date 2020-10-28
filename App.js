@@ -68,10 +68,10 @@ const DeckStack = () => (
       component={QuizResult} 
       
     />
-    {/* <Stack.Screen 
+    <Stack.Screen 
       name='AddDeck'
       component={AddDeck} 
-    /> */}
+    />
     
     
   </Stack.Navigator>

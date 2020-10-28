@@ -70,7 +70,7 @@ export async function saveDeckTitle(title) {
   try {
     await AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [title]: { 
-      title: title, 
+      title, 
       questions: []
     },
   }))

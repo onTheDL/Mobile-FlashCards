@@ -29,7 +29,7 @@ export function handleInitialData() {
   }
 }
 
-function addDeck(title) {
+export function addDeck(title) {
   return {
     type: ADD_DECK,
     title,
@@ -38,10 +38,8 @@ function addDeck(title) {
 
 export function handleAddDeck(title) {
   return dispatch => {
+    dispatch(addDeck(title))
     return saveDeckTitle(title)
-      .then(() => {
-        dispatch(addDeck(title))
-      })
       .catch(e => {
         console.warn('Error in handleAddDeck(): ', e)
         alert('There was an error adding your deck. Please try again.')
@@ -49,7 +47,7 @@ export function handleAddDeck(title) {
   }
 }
 
-function deleteDeckAction(deckId) {
+export function deleteDeckAction(deckId) {
   return {
     type: DELETE_DECK,
     deckId,
@@ -57,9 +55,17 @@ function deleteDeckAction(deckId) {
 }
 
 export function handleDeleteDeck(deckId) {
-  return dispatch => {
-    return deleteDeck(deckId)
-      .then(() => dispatch(deleteDeckAction(deckId)))
+
+  return (dispatch) => {
+    
+     return deleteDeck(deckId)
+      .then(() => {
+        dispatch(deleteDeckAction(deckId))
+      })
+      .catch(e => {
+        console.error('Error in handleDeleteDeck in api.js', e)
+        
+      })
   }
 }
 
