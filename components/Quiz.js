@@ -1,40 +1,149 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
+import FlipCard from 'react-native-flip-card'
 
 class Quiz extends Component {
   state = {
     question: '',
     answer: '',
     index: 0,
+    numCorrect: 0,
+    numWrong: 0,
+    showResults: false,
   }
 
-  // componentDidMount() {
-  //   const { route, decks } = this.props
-  //   const { deckId } = route.params
-  //   const deck = decks[deckId]
-  //   const { index } = this.state.index
-  //   const { question, answer } = deck.questions[index]
+  handleCorrectAns = () => {   
+    this.setState(prevState => ({
+      ...prevState,
+      index: prevState.index + 1,
+      numCorrect: prevState.numCorrect + 1,
+    }))
+  }
 
-  //   this.setState({
-  //     question,
-  //     answer,
-  //   })
-  // }
+  handleWrongAns = () => {
+    this.setState(prevState => ({
+        ...prevState,
+        index: prevState.index + 1,
+        numWrong: prevState.numWrong + 1,
+    }))
+  }
+
+  navToResults = (correct, incorrect, total ) => {
+    
+    this.setState({
+      question: '',
+      answer: '',
+      index: 0,
+      numCorrect: 0,
+      numWrong: 0,
+    })
+    
+    const { navigate } = this.props.navigation
+
+    navigate('QuizResult', { 
+      correct, 
+      incorrect,
+      total,
+    })
+
+    
+  }
+
+  
 
   render() {
     const { deckId } = this.props.route.params
-    const { decks } = this.props
+    const { decks, navigation } = this.props
+    const { navigate } = navigation
     const deck = decks[deckId]
-    const { title, questions} = deck
-    const { index } = this.state
+    const { questions } = deck
+    const { index, numCorrect, numWrong } = this.state
     const { question, answer } = questions[index]
+    const totalQuestions = questions.length
+    const counter = `[ ${index + 1} of ${totalQuestions} ]`
+
 
     return (
-      <View style={styles.container}>
-        <Text>Q:  {question}</Text>
-    <Text>A:  {answer}</Text>
-      </View>
+    <View style={{flex: 1}}> 
+        <FlipCard 
+          style={{flex: 1}}
+          friction={8}
+          perspective={1000}
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={false}
+          clickable={true}
+          
+        >
+          {/* Face Side */}
+          <View style={styles.container}>
+
+            <Text style={styles.counter}>QUESTION {counter} : </Text>
+
+            <View>
+              {/* <Text style={styles.heading}>QUESTION:</Text> */}
+              <Text style={styles.text}>{question}</Text>
+              <TouchableOpacity style={styles.fliptoAnswer}>
+                <Text>(Tap to see answer)</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* Back Side */}
+          <View style={styles.container}>
+            <View style={{alignItems: 'center', marginTop: 30}}>
+              <Text style={styles.heading}>ANSWER:</Text>
+              <Text style={styles.text}>{answer}</Text>
+
+              <View style={styles.subContainer}>
+                <Text>Did you answer correctly?</Text>
+
+                  <View style={styles.btnContainer}>
+                    <View>
+                      <TouchableOpacity 
+                        style={styles.btn}
+                        onPress={
+                          (index + 1 >= questions.length)
+                          ? this.navToResults(numCorrect + 1, numWrong, totalQuestions)
+                          : this.handleCorrectAns
+                        }
+                      >
+                        <Text>Yes</Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    <View>
+                      <TouchableOpacity 
+                        style={styles.btn}
+                        onPress={
+                          index + 1 >= totalQuestions
+                          ? this.navToResults(numCorrect, numWrong + 1, totalQuestions)
+                          : this.handleWrongAns
+                        }
+                      >
+                        <Text>No</Text>
+                      </TouchableOpacity>
+                    </View>
+                    
+                  </View>
+
+              </View>
+
+              <TouchableOpacity style={styles.flipToQuestion}>
+                <Text>(Back to the question)</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+
+        </FlipCard>
+
+
+        
+
+    </View>
     )
   }
 }
@@ -42,12 +151,61 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    // marginBottom: 180,
     marginLeft: 10,
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  heading: {
+    marginBottom: 10,
+    // textAlign: 'center',
+  },
+  text: {
+    fontSize: 25,
+  },
+  fliptoAnswer: {
+    marginTop: 20,
+    height: 200,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  counter: {
+    height: 50,
+    justifyContent: 'flex-start',
+  },
+
+  //back side
+  subContainer: {
+    marginTop: 65,
+    // height: 80,
+    // justifyContent: 'center',
+  },
+
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 30,
+    
+
+  },
+  btn: {
+    width: 60,
+    height: 30,
+    borderWidth: 1,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+
+  flipToQuestion: {
+    marginTop: 70,
+    // height: 200,
+    // justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+
 })
 
 function mapStateToProps(decks) {

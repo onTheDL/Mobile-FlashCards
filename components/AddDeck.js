@@ -26,13 +26,16 @@ class AddDeck extends Component {
 
     // add deck title to store
   
-    alert('Add Deck: title was  submitted')
-    this.setState({
-    title: '',
-    })
+    alert('Add Deck: title was submitted')
+
     this.props.navigation.navigate('Deck', {
       deckId: this.state.title,
     })
+    
+    this.setState({
+    title: '',
+    })
+    
   }
 
   render() {
