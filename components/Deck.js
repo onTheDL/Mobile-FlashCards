@@ -27,17 +27,11 @@ function Deck({ route, navigation, decks, dispatch }) {
 
   const onDeleteDeck = () => {
 
+    // delete from db and store
+    dispatch(handleDeleteDeck(deckId))
     // nav to DeckList
     navigate('DeckList')
 
-    dispatch(handleDeleteDeck(deckId))
-
-  /*
-    // delete in db
-    deleteDeck(deckId)
-    // delete in store
-    dispatch(deleteDeckAction(deckId))
-  */  
   
   }
 

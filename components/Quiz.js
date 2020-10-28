@@ -32,14 +32,6 @@ class Quiz extends Component {
 
   navToResults = (correct, incorrect, total ) => {
     
-    this.setState({
-      question: '',
-      answer: '',
-      index: 0,
-      numCorrect: 0,
-      numWrong: 0,
-    })
-    
     const { navigate } = this.props.navigation
 
     navigate('QuizResult', { 
@@ -48,7 +40,14 @@ class Quiz extends Component {
       total,
     })
 
-    
+    this.setState({
+      question: '',
+      answer: '',
+      index: 0,
+      numCorrect: 0,
+      numWrong: 0,
+    })
+        
   }
 
   render() {
@@ -58,6 +57,12 @@ class Quiz extends Component {
     const deck = decks[deckId]
     const { questions } = deck
     const { index, numCorrect, numWrong } = this.state
+
+    if(!questions[index] || index === questions.length) {
+      this.navToResults(numCorrect, numWrong, questions.length)
+      return null;
+    }
+
     const { question, answer } = questions[index]
     const totalQuestions = questions.length
     const counter = `[ ${index + 1} of ${totalQuestions} ]`
@@ -106,22 +111,14 @@ class Quiz extends Component {
                 <View style={styles.btnContainer}>
                   <TouchableOpacity 
                     style={styles.btn}
-                    onPress={
-                      (index + 1 >= questions.length)
-                      ? this.navToResults(numCorrect + 1, numWrong, totalQuestions)
-                      : this.handleCorrectAns
-                    }
+                    onPress={this.handleCorrectAns}
                   >
                     <Text>Yes</Text>
                   </TouchableOpacity>
                                     
                   <TouchableOpacity 
                     style={styles.btn}
-                    onPress={
-                      index + 1 >= totalQuestions
-                      ? this.navToResults(numCorrect, numWrong + 1, totalQuestions)
-                      : this.handleWrongAns
-                    }
+                    onPress={this.handleWrongAns}
                   >
                     <Text>No</Text>
                   </TouchableOpacity>

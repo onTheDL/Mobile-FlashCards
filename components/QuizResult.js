@@ -13,7 +13,7 @@ class QuizResult extends Component {
         <Text>Correct: {correct}</Text>
         <Text>Incorrect: {incorrect} </Text>
         <Text>
-          Percentage:  { 100 * correct / total }% 
+          Percentage:  { 100 * (correct / total) }% 
         </Text>
         
       </View>
