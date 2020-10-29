@@ -49,7 +49,7 @@ class DeckList extends Component {
   }
   render() {
 
-    const { decks } = this.props
+    const { decks, navigation, route } = this.props
     
     return (
       <View style={styles.container}>
@@ -60,8 +60,8 @@ class DeckList extends Component {
         {Object.keys(decks).map(title => (
           <View key={title} style={styles.cardsContainer}>
             <DeckSummary
-             route={this.props.route}
-             navigation={this.props.navigation}
+             route={route}
+             navigation={navigation}
              title={title}
              decks={decks}
              />

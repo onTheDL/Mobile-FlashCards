@@ -25,17 +25,10 @@ class AddDeck extends Component {
   handleSubmit = (e) => {
     const { title } = this.state
     const { dispatch } = this.props
-    /*
-    // add to Redux store  
-    addDeck(title)
-
-    // add to DB 
-    saveDeckTitle(title)
-    */
-
+    
     dispatch(handleAddDeck(title))
 
-    alert(`The deck entitled ${title} was added`)
+    alert(`${title} has been added. Begin by adding your first card to this deck.`)
 
     this.props.navigation.navigate('Deck', {
       deckId: title,

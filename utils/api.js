@@ -91,12 +91,12 @@ export async function deleteDeck(key) {
     .catch(err => console.log('Error in deleteDeck() in api.js: ', err))
 }
 
-export async function addCardToDeck(deckId, card) {
+export async function addCardToDeck(deckId, question) {
   const deck = getDeck(deckId)
   const jsonCardMerge = JSON.stringify({
     [deckId]: {
       title: deckId,
-      questions: [...deck.questions].concat(card)
+      questions: [...deck.questions].concat(question)
     }
   })
    await AsyncStorage.mergeItem(

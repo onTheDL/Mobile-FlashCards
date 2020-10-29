@@ -77,11 +77,11 @@ export function addCard(deckId, card) {
   }
 }
 
-export function handleAddCard(deckId, card) {
+export function handleAddCard(deckId, question) {
   return dispatch => {
-    return addCardToDeck(deckId, card)
-      .then((deckId, card) => {
-        return dispatch(addCard(deckId, card))
+    return addCardToDeck(deckId, question)
+      .then(() => {
+        return dispatch(addCard(deckId, question))
       })
       .catch(e => {
         console.warn('Error in handleAddCard(): ', e)

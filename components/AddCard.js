@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView, 
 } from 'react-native'
+import { handleAddCard } from '../actions'
+import { connect } from 'react-redux'
 
 class AddCard extends Component {
   state = {
@@ -23,11 +25,14 @@ class AddCard extends Component {
   }
 
   handleSubmit = () => {
-    const { question, answer } = this.state
+    // const { question, answer } = this.state
+    // const questionObj = { question, answer }
 
-    // add to DB
+    // const { route, dispatch } = this.props
+    // const { deckId } = route.params
 
-    // add deck title to store
+    // // add to DB and to store
+    // dispatch(handleAddCard(deckId, questionObj))
 
   }
 
@@ -105,4 +110,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default AddCard
+export default connect()(AddCard)

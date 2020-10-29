@@ -7,14 +7,11 @@ import { handleDeleteDeck } from '../actions'
 
 function Deck({ route, navigation, decks, dispatch }) {
   const { deckId } = route.params
-  // console.log('deckId: ', deckId)
-  // console.log('decks: ', decks)
-  // console.log('navigation: ', navigation)
-
+  
   const { navigate } = navigation
   const questions = decks[deckId]   
     ? decks[deckId].questions 
-    : ''
+    : []
 
   const handleAddCard = () => {
     navigate('AddCard', { deckId
@@ -22,7 +19,12 @@ function Deck({ route, navigation, decks, dispatch }) {
   }
 
   const handleStartQuiz = () => {
-    navigate('Quiz', { deckId })
+    if (questions.length === 0) {
+      return navigate('ErrorPage')
+    } else {
+      return navigate('Quiz', { deckId })
+    }
+    
   }
 
   const onDeleteDeck = () => {
@@ -32,7 +34,8 @@ function Deck({ route, navigation, decks, dispatch }) {
     // nav to DeckList
     navigate('DeckList')
 
-  
+    alert( `${deckId} has been deleted.`)
+
   }
 
   return (
@@ -51,18 +54,19 @@ function Deck({ route, navigation, decks, dispatch }) {
       </View>
 
       <View>
-        <TouchableOpacity 
-          style={styles.btn}
-          onPress={handleAddCard} 
-        >
-          <Text>Add Card</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity 
           style={[styles.btn, styles.quizBtn]}
           onPress={handleStartQuiz}
         >
           <Text style={{color: 'white'}}>Start Quiz</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.btn}
+          onPress={handleAddCard} 
+        >
+          <Text style={{color: 'black'}}>Add Card</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -97,11 +101,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
  
-  buttons: {
-    // flex: 0.2,
-    // justifyContent: 'flex-end',
-    // height: 100,
-  },
   btn: {
     width: 150,
     height: 40,

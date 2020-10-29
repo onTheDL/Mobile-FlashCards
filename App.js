@@ -57,7 +57,8 @@ const DeckStack = () => (
     />
     <Stack.Screen 
       name='ErrorPage'
-      component={ErrorPage} 
+      component={ErrorPage}
+      options={{ title: 'Empty Deck'}} 
     />
     <Stack.Screen 
       name='Quiz'

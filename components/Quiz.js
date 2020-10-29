@@ -67,12 +67,6 @@ class Quiz extends Component {
     const totalQuestions = questions.length
     const counter = `[ ${index + 1} of ${totalQuestions} ]`
 
-    if (totalQuestions === 0) {
-      <View style={styles.container}>
-        <Text>This deck is empty. Add study cards to start the quiz.</Text>
-      </View>
-    }
-
     return (
     <View style={{flex: 1}}> 
       <FlipCard 
