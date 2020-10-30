@@ -23,6 +23,8 @@ import Quiz from './components/Quiz'
 import QuizResult from './components/QuizResult'
 import AddDeck from './components/AddDeck'
 
+import { setLocalNotification } from './utils/helpers'
+
 
 
 function AppStatusBar({ backgroundColor, ...props }) {
@@ -96,6 +98,9 @@ const TabNav = () => (
 )
 
 class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   
   render() {
     return (

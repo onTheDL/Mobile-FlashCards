@@ -58,14 +58,6 @@ export const getDecks = async () => {
   }
 }
 
-// get single deck
-export async function getDeck(deckId) {
-  return await AsyncStorage.getItem(DECK_STORAGE_KEY)
-    .then(res => JSON.parse(res))
-    .then(res => res[deckId])
-    .catch(err => console.log('Error in getDeck() in api.js: ', err))
-}
-
 export async function saveDeckTitle(title) {
   try {
     await AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
@@ -91,11 +83,18 @@ export async function deleteDeck(key) {
     .catch(err => console.log('Error in deleteDeck() in api.js: ', err))
 }
 
+// get single deck
+export async function getDeck(deckId) {
+  return await AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then(res => JSON.parse(res)[deckId])
+    // .then(res => res[deckId])
+    .catch(err => console.log('Error in getDeck() in api.js: ', err))
+}
+
 export async function addCardToDeck(deckId, question) {
-  const deck = getDeck(deckId)
+  const deck = await getDeck(deckId)
   const jsonCardMerge = JSON.stringify({
     [deckId]: {
-      title: deckId,
       questions: [...deck.questions].concat(question)
     }
   })

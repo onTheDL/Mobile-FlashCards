@@ -6,7 +6,6 @@ class QuizResult extends Component {
   render() {
     const { correct, incorrect, total } = this.props.route.params
 
-    console.log('props in QuizResults: ', this.props)
     return (
       <View>
         <Text>QuizResult: </Text>

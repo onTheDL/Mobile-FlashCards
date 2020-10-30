@@ -25,20 +25,27 @@ class AddCard extends Component {
   }
 
   handleSubmit = () => {
-    // const { question, answer } = this.state
-    // const questionObj = { question, answer }
+    const { question, answer } = this.state
+    const card = { question, answer }
 
-    // const { route, dispatch } = this.props
-    // const { deckId } = route.params
+    const { route, navigation, dispatch } = this.props
+    const { deckId } = route.params
 
-    // // add to DB and to store
-    // dispatch(handleAddCard(deckId, questionObj))
+    // add to DB and to store
+    dispatch(handleAddCard(deckId, card))
+
+    navigation.goBack()
+
+    this.setState({
+      question: '',
+      answer: '',
+    })
 
   }
 
   render() {
-    const { deckId } = this.props.route.params
     const { question, answer} = this.state
+
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView>
@@ -61,14 +68,12 @@ class AddCard extends Component {
         </KeyboardAvoidingView>
 
         <TouchableOpacity 
-        style={styles.btn}
-        onPress={this.handleSubmit} 
+          style={styles.btn}
+          onPress={this.handleSubmit} 
         >
           <Text style={styles.btnText}>Submit</Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
 
-
-        
       </View>
     )
   }

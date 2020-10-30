@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
-
 import { connect } from 'react-redux'
 import { handleDeleteDeck } from '../actions'
+import { clearLocalNotification,  setLocalNotification } from '../utils/helpers'
 
 
 function Deck({ route, navigation, decks, dispatch }) {
@@ -22,6 +22,10 @@ function Deck({ route, navigation, decks, dispatch }) {
     if (questions.length === 0) {
       return navigate('ErrorPage')
     } else {
+
+      clearLocalNotification()
+        .then(setLocalNotification)
+
       return navigate('Quiz', { deckId })
     }
     

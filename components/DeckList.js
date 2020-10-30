@@ -12,6 +12,7 @@ import { getDecks, data } from '../utils/api'
 
 
 
+
 const DeckSummary = ({title, navigation, decks}) => {
   const questions = decks[title].questions
   const { navigate } = navigation
@@ -45,7 +46,7 @@ const DeckSummary = ({title, navigation, decks}) => {
 class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(handleInitialData())
+    dispatch(handleInitialData())    
   }
   render() {
 
@@ -78,7 +79,7 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 25,
     alignItems: 'center',
     justifyContent: 'center',
     
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
-    marginBottom: 20,
+    marginBottom: 15,
     alignSelf: 'center',
   },
   cards: {

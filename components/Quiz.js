@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import FlipCard from 'react-native-flip-card'
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
   state = {
@@ -47,6 +48,9 @@ class Quiz extends Component {
       numCorrect: 0,
       numWrong: 0,
     })
+
+    clearLocalNotification()
+      .then(setLocalNotification)
         
   }
 
