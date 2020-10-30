@@ -35,10 +35,6 @@ function AppStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-
-// Note: Possible breaking update in @react-navigation/material-top-tabs; importing api returns an error. Currently only designing tab nav for ios
-
-
 const Stack = createStackNavigator()
 
 const DeckStack = () => (
@@ -79,6 +75,8 @@ const DeckStack = () => (
     
   </Stack.Navigator>
 )
+
+// Note: Possible breaking update in @react-navigation/material-top-tabs; importing api returns an error. Currently only designing tab nav for ios
 const Tabs = createBottomTabNavigator()
 const TabNav = () => (
   <Tabs.Navigator
@@ -122,9 +120,6 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 

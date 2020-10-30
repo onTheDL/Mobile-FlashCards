@@ -41,18 +41,20 @@ export function setLocalNotification() {
               tomorrow.setDate(tomorrow.getDate() + 1)
               tomorrow.setHours(20)
               tomorrow.setMinutes(0)
-
-              Notifications.scheduleLocalNotificationAsync(
-                createNotification(), 
-                {
+              
+              Notifications.scheduleNotificationAsync({
+                content: createNotification(),
+                trigger: {
                   time: tomorrow,
-                  repeat: 'day',
+                  repeats: true,
                 }
-              )
-
+              })
+              
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
             }
           })
+          .catch(e => console.error('Error in Permissions.askAsync(Permissions.NOTIFICATIONS) in helper.js', e))
       }
     })
+    .catch(e => console.error('Error in setLocalNotification() in helper.js', e))
 }
