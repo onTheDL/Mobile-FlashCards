@@ -32,13 +32,14 @@ class Quiz extends Component {
   }
 
   navToResults = (correct, incorrect, total ) => {
-    
+    const { deckId } = this.props.route.params
     const { navigate } = this.props.navigation
 
     navigate('QuizResult', { 
       correct, 
       incorrect,
       total,
+      deckId
     })
 
     this.setState({

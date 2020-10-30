@@ -60,7 +60,7 @@ class AddDeck extends Component {
               onPress={this.handleSubmit}
               style={styles.button}
             >
-              <Text style={styles.btnText}>Submit</Text>
+              <Text style={styles.btnText}>Create Deck</Text>
             </TouchableOpacity> 
           }
         </View>
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   input: {
     borderColor: 'grey',

@@ -110,8 +110,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderRadius: 16,
-    //backgroundColor:'#438ae8',
-    // color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 22,
