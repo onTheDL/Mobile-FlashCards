@@ -79,10 +79,10 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 25,
+    paddingTop: 25,
     alignItems: 'center',
     justifyContent: 'center',
-    
+    backgroundColor: 'white',
   },
 
   cardsContainer: {

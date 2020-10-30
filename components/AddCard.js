@@ -66,14 +66,14 @@ class AddCard extends Component {
           />
 
         </KeyboardAvoidingView>
-
-        <TouchableOpacity 
-          style={styles.btn}
-          onPress={this.handleSubmit} 
-        >
-          <Text style={styles.btnText}>Submit</Text>
-        </TouchableOpacity>
-
+        { (question !== '' && answer !== '') &&
+          <TouchableOpacity 
+            style={styles.btn}
+            onPress={this.handleSubmit}
+          >
+            <Text style={styles.btnText}>Submit</Text>
+          </TouchableOpacity>
+        }
       </View>
     )
   }

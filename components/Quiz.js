@@ -93,7 +93,7 @@ class Quiz extends Component {
             {/* <Text style={styles.heading}>QUESTION:</Text> */}
             <Text style={styles.text}>{question}</Text>
             <TouchableOpacity style={styles.fliptoAnswer}>
-              <Text>(Tap to see answer)</Text>
+              <Text style={{color: 'white', textAlign: 'center'}}>See answer</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -125,7 +125,7 @@ class Quiz extends Component {
             </View>
 
             <TouchableOpacity style={styles.flipToQuestion}>
-              <Text>(Back to the question)</Text>
+              <Text style={{color: 'white'}}>Question</Text>
             </TouchableOpacity>
           </View>
 
@@ -144,24 +144,29 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginBottom: 180,
-    marginLeft: 10,
-    marginRight: 10,
+    // marginLeft: 10,
+    // marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   heading: {
     marginBottom: 10,
-    // textAlign: 'center',
+  
   },
   text: {
     fontSize: 25,
+    textAlign: 'center'
   },
   fliptoAnswer: {
-    marginTop: 20,
-    height: 200,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    marginTop: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 5,
+    backgroundColor: '#438ae8',
   },
   counter: {
     height: 50,
@@ -170,15 +175,13 @@ const styles = StyleSheet.create({
 
   //back side
   subContainer: {
-    marginTop: 65,
-    // height: 80,
-    // justifyContent: 'center',
+    marginTop: 80,
   },
 
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 30,
+    marginTop: 25,
     
 
   },
@@ -193,10 +196,14 @@ const styles = StyleSheet.create({
   },
 
   flipToQuestion: {
-    marginTop: 70,
-    // height: 200,
-    // justifyContent: 'flex-end',
-    alignItems: 'center'
+    marginTop: 50,
+    width: 100,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 5,
+    backgroundColor: '#438ae8'
+    
   },
 
 })

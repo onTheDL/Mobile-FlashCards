@@ -87,11 +87,10 @@ function Deck({ route, navigation, decks, dispatch }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
-    marginLeft: 10,
-    marginRight: 10,
+    padding: 15,
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
 
   textSubContainer: {

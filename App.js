@@ -7,6 +7,9 @@ import { Provider, connect } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
 
+import { Entypo } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
+
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -80,11 +83,37 @@ const DeckStack = () => (
 const Tabs = createBottomTabNavigator()
 const TabNav = () => (
   <Tabs.Navigator
-  initialRouteName='DeckStack'
+    initialRouteName='DeckStack'
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ color, size }) => {
+        let icon
+        if (route.name === 'DeckStack') {
+          icon = <AntDesign name="folder1" size={size} color={color} />
+        } else if (route.name === 'AddDeck') {
+          icon = <AntDesign name="addfolder" size={size} color={color} />
+        }
+        return icon
+      }
+    })}
+    tabBarOptions={{
+      showIcon: true,
+      style: {
+        height: 50,
+        shadowColor: "rgba(0, 0, 0, 0.24)",
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowRadius: 6,
+        shadowOpacity: 1,
+        paddingBottom: 5,
+        paddingTop: 10,
+      },
+    }}
   >
     <Tabs.Screen 
       name='DeckStack'
-      options={{ title: 'Deck Stacks'}}
+      options={{ title: 'Decks Stack'}}
       component={DeckStack}
     />
     <Tabs.Screen
