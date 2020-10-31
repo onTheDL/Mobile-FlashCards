@@ -3,11 +3,10 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { createStore } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { Provider} from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
 
-import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -141,9 +140,7 @@ class App extends React.Component {
         </View>
       </Provider>
     )
-  }
-
-  
+  }  
 }
 
 const styles = StyleSheet.create({

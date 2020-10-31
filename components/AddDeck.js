@@ -6,10 +6,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Platform,
  } from 'react-native'
-import { handleAddDeck, addDeck } from '../actions'
-import { saveDeckTitle } from '../utils/api'
+import { handleAddDeck } from '../actions'
 import { connect } from 'react-redux'
 
 class AddDeck extends Component {

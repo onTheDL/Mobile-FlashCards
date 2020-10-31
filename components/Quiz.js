@@ -128,13 +128,8 @@ class Quiz extends Component {
               <Text style={{color: 'white'}}>Question</Text>
             </TouchableOpacity>
           </View>
-
         </View>
-
       </FlipCard>
-
-
-        
 
     </View>
     )
@@ -144,8 +139,6 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginLeft: 10,
-    // marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -203,9 +196,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 5,
     backgroundColor: '#438ae8'
-    
   },
-
 })
 
 function mapStateToProps(decks) {

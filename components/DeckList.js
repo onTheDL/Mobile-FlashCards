@@ -6,11 +6,7 @@ import {
   ScrollView, 
   TouchableOpacity, } from 'react-native'
 import { connect } from 'react-redux'
-import { handleAddCard, handleInitialData } from '../actions/index'
-import { getDecks, data } from '../utils/api'
-
-
-
+import { handleInitialData } from '../actions/index'
 
 
 const DeckSummary = ({title, navigation, decks}) => {
