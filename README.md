@@ -31,3 +31,6 @@ Once the Expo Developer Tools open in the browser, you can either:
 
 ## Testing
 This projected was tested on an android phone.
+
+## Additional Sources
+Used [react-native-flip-card](https://www.npmjs.com/package/react-native-flip-card) to animate transitioning from Quiz question to answer.
